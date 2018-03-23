@@ -38,6 +38,9 @@
             <h3>Players</h3>
             <br>
             <li>{{ getUserName }}</li>
+            <ul id="results" v-if="arrUser.length > 0" v-for="(user,j) in arrUser" :key="j">
+              <li>{{ user.username }} : {{ user.score }}Pts.</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -66,6 +69,7 @@ export default {
       if (this.answer === this.AnswerActive) {
         let newIndex = String(parseInt(this.IndexActive) + 1)
         this.$store.dispatch('setIsActive', newIndex)
+        this.$store.dispatch('addScore')
       }
       this.answer = ''
     }
@@ -75,20 +79,12 @@ export default {
       QuestionActive: 'getQuestion',
       AnswerActive: 'getAnswer',
       IndexActive: 'getIsActive',
-      arrMsg: 'getArrMessage'
+      arrMsg: 'getArrMessage',
+      arrUser: 'getArrUser'
     }),
     isActive () {
       return this.$store.state.isActive
     },
-    // QuestionActive () {
-    //   return this.$store.state.question
-    // }
-    // Question () {
-    //   return this.$store.state.arrQuestion
-    // },
-    // isActive () {
-    //   return this.$store.state.isActive
-    // },
     username () {
       return this.$store.state.username
     },
@@ -103,6 +99,7 @@ export default {
     this.$store.dispatch('setIsActive', '1')
     this.$store.dispatch('loadQuestion')
     this.$store.dispatch('getChat')
+    this.$store.dispatch('getScore')
     this.user = this.$store.state.username
   }
 }

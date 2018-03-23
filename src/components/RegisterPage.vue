@@ -21,16 +21,8 @@ export default {
       componentUsername: ''
     }
   },
-
-  computed: {
-    username () {
-      return this.$store.state.username
-    }
-  },
-
   methods: {
     registerUser () {
-      this.$fbdb.ref('users/').push({ username: this.componentUsername })
       this.$store.dispatch('saveUser', this.componentUsername)
       this.$router.push({name: 'Home'})
     }

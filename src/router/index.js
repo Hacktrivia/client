@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import RegisterPage from '@/components/RegisterPage'
 import QuestionPage from '@/components/QuestionPage'
+import ChatPage from '@/components/ChatPage'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/home',
       name: 'Home',
       component: QuestionPage
+    },
+    {
+      path: '/chat',
+      name: 'chat',
+      component: ChatPage
     }
   ]
 })

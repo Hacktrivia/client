@@ -68,6 +68,9 @@ export default {
       this.$fbdb.ref('messages/').push({ username: this.user, message: this.answer })
       if (this.answer === this.AnswerActive) {
         let newIndex = String(parseInt(this.IndexActive) + 1)
+        if (newIndex > this.lastIndexQuestion) {
+          newIndex = 1
+        }
         this.$store.dispatch('setIsActive', newIndex)
         this.$store.dispatch('addScore')
       }
@@ -80,6 +83,7 @@ export default {
       AnswerActive: 'getAnswer',
       IndexActive: 'getIsActive',
       arrMsg: 'getArrMessage',
+      lastIndexQuestion: 'getLastndexQuestion',
       arrUser: 'getArrUser'
     }),
     isActive () {
@@ -96,7 +100,7 @@ export default {
     }
   },
   created: function () {
-    this.$store.dispatch('setIsActive', '1')
+    // this.$store.dispatch('setIsActive', '1')
     this.$store.dispatch('loadQuestion')
     this.$store.dispatch('getChat')
     this.$store.dispatch('getScore')

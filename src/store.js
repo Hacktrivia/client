@@ -14,6 +14,7 @@ const store = new Vuex.Store({
     isActive: ``,
     question: ``,
     answer: ``,
+    lastndexQuestion: 3,
     arrUser: [
 
     ]
@@ -30,6 +31,9 @@ const store = new Vuex.Store({
     },
     getArrMessage: state => {
       return state.arrMessage
+    },
+    getLastndexQuestion: state => {
+      return state.lastndexQuestion
     },
     getArrUser: state => {
       return state.arrUser

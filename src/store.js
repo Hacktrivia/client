@@ -5,18 +5,6 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    arrQuestion: [
-      {
-        q: 'Apa nama ibu kota Indonesia ? ',
-        a: 'jakarta'
-      }, {
-        q: 'Apa nama ibu kota Belanda ? ',
-        a: 'jakarta'
-      }, {
-        q: 'Apa nama ibu kota Bekasi ? ',
-        a: 'jakarta'
-      }
-    ],
     arrMessage: [
 
     ],

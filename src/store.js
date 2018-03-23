@@ -65,7 +65,7 @@ const store = new Vuex.Store({
     },
     getChat (context) {
       firebase.database().ref().child('messages').on('value', (snapshot) => {
-        let arrMsg = Object.values(snapshot.val())
+        let arrMsg = Object.values(snapshot.val()).reverse()
         context.commit('setArrMsg', arrMsg)
       })
     },

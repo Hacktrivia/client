@@ -5,7 +5,6 @@ import firebase from 'firebase'
 import App from './App'
 import router from './router'
 import store from './store'
-import jquery from 'jquery'
 
 Vue.config.productionTip = false
 
@@ -19,8 +18,7 @@ var config = {
 }
 
 firebase.initializeApp(config)
-Vue.prototype.$fbdb = firebase.database()
-Vue.prototype.$jq = jquery
+Vue.prototype.$fbdb = firebase.database(
 
 /* eslint-disable no-new */
 new Vue({

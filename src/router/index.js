@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import RegisterPage from '@/components/RegisterPage'
 import QuestionPage from '@/components/QuestionPage'
 import ChatPage from '@/components/ChatPage'
+import LeaderboardPage from '@/components/LeaderboardPage'
 import store from '@/store'
 
 Vue.use(Router)
@@ -39,6 +40,11 @@ export default new Router({
       path: '/chat',
       name: 'chat',
       component: ChatPage
+    },
+    {
+      path: '/leaderboard',
+      name: 'Leaderboard',
+      component: LeaderboardPage
     }
   ]
 

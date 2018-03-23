@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="bg-img" style="padding-top: 5%;">
+      <iframe src="https://www.youtube.com/embed/UBVoONryE3s?autoplay=1&loop=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       <div class="container base-style">
         <div class="row">
           <div class="col-md-3">
@@ -17,7 +18,7 @@
                 <div class="component-input">
                   <div class="row">
                     <div class="col-md-8">
-                      <input class="form-input" type="text" v-model="answer">
+                      <input class="form-input" type="text" v-model="answer" v-on:keyup.enter="checkAnswer">
                     </div>
                     <div class="col-md-4">
                       <button @click="checkAnswer" class="eightbit-btn eightbit-btn--proceed">Guess</button>
@@ -131,8 +132,8 @@ export default {
 .chat {
   width: 100%;
   background-color: #FFF;
-  max-height: 500px;
-  min-height: 500px;
+  max-height: 400px;
+  min-height: 400px;
   top: -6px;
   border: 6px solid black;
   position: relative;
@@ -207,4 +208,50 @@ export default {
 textarea:focus, input:focus{
   outline: none;
 }
+
+iframe {
+  display:none;
+}
+
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  display: table;
+  transition: opacity .3s ease;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modal-container {
+  width: 300px;
+  margin: 0px auto;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+  transition: all .3s ease;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.modal-header h3 {
+  margin-top: 0;
+  color: #42b983;
+}
+
+.modal-body {
+  margin: 20px 0;
+}
+
+.modal-default-button {
+  float: right;
+}
+
 </style>

@@ -2,9 +2,7 @@
   <div>
       <h1>{{username}}</h1>
       <input type="text" v-model="componentUsername">
-      <router-link to="/chat">
-        <button @click="changeName">Register </button>
-      </router-link>
+      <button @click="registerUser">Register </button>
   </div>
 </template>
 
@@ -23,10 +21,12 @@ export default {
   },
 
   methods: {
-    changeName () {
-      this.$store.commit('setName', this.componentUsername)
+    registerUser () {
       this.$fbdb.ref('users/').push({ username: this.componentUsername })
+      this.$store.dispatch('saveUser', this.componentUsername)
+      this.$router.push({name: 'Home'})
     }
+
   }
 }
 </script>

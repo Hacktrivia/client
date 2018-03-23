@@ -5,21 +5,23 @@ import firebase from 'firebase'
 import App from './App'
 import router from './router'
 import store from './store'
+import firebase from 'firebase'
 
 Vue.config.productionTip = false
 
-// Initialize Firebase
 var config = {
-  apiKey: 'AIzaSyDVifyUHN915I1fkxhxeim1KiYCF4oh_II',
-  authDomain: 'triviack.firebaseapp.com',
-  databaseURL: 'https://triviack.firebaseio.com',
-  projectId: 'triviack',
-  storageBucket: 'triviack.appspot.com',
-  messagingSenderId: '184111905079'
+  apiKey: 'AIzaSyCGM4cmlDvgfAR5rN1g32TiBoxEGLuD594',
+  authDomain: 'wpmc-2ac20.firebaseapp.com',
+  databaseURL: 'https://wpmc-2ac20.firebaseio.com',
+  projectId: 'wpmc-2ac20',
+  storageBucket: 'wpmc-2ac20.appspot.com',
+  messagingSenderId: '734084490649'
 }
 
 firebase.initializeApp(config)
 Vue.prototype.$fbdb = firebase.database()
+
+Vue.prototype.$jq = $
 
 /* eslint-disable no-new */
 new Vue({

@@ -1,7 +1,6 @@
 <template>
   <div class="leaderboard-content">
     <h1>Leaderboard Page &#9813;</h1>
-    <p>{{scoreData}}</p>
     <div class="leaderboard-form">
       <table border="0">
       <thead>
@@ -53,6 +52,12 @@ export default {
 </script>
 
 <style scoped>
+
+h1 {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 
 table {
   text-align: center;

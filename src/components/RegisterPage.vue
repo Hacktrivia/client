@@ -3,13 +3,18 @@
     <div class="intro">
       <img src="@/assets/Hacktrivia.png" alt="">
       <br>
-      <h1>Enter your name</h1>
+      <h1>Enter your username</h1>
       <br>
       <input class="form-input" type="text" v-model="componentUsername" @keyup.enter="registerUser">
       <br>
       <br>
       <br>
       <button class="eightbit-btn eightbit-btn--proceed"  @click="registerUser">Play Game</button>
+      <br>
+      <br>
+      <!-- <div class="validation-form">
+        username can not empty
+      </div> -->
     </div>
   </div>
 </template>
@@ -103,4 +108,15 @@ export default {
 textarea:focus, input:focus{
   outline: none;
 }
+
+.validation-form {
+    padding-top: 50px;
+    padding: 20px;
+    background: red;
+    border: 6px solid;
+    color: #FFF;
+    width: 45%;
+    margin: 0 auto;
+}
+
 </style>

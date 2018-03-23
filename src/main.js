@@ -9,13 +9,13 @@ import $ from 'jquery'
 
 Vue.config.productionTip = false
 
-const config = {
-  apiKey: 'AIzaSyCUqzGCmX0P6n71XY0T9FNp0n3jT3r-4mQ',
-  authDomain: 'hacktrivia-91a4b.firebaseapp.com',
-  databaseURL: 'https://hacktrivia-91a4b.firebaseio.com',
-  projectId: 'hacktrivia-91a4b',
-  storageBucket: 'hacktrivia-91a4b.appspot.com',
-  messagingSenderId: '1027360734967'
+var config = {
+  apiKey: 'AIzaSyCGM4cmlDvgfAR5rN1g32TiBoxEGLuD594',
+  authDomain: 'wpmc-2ac20.firebaseapp.com',
+  databaseURL: 'https://wpmc-2ac20.firebaseio.com',
+  projectId: 'wpmc-2ac20',
+  storageBucket: 'wpmc-2ac20.appspot.com',
+  messagingSenderId: '734084490649'
 }
 
 firebase.initializeApp(config)

@@ -1,9 +1,14 @@
 <template>
   <div>
     <div>
-      <h2>{{Question[index].q}}</h2>
-      <input type="text" v-model="input" id="answer">
-      <input type="submit" @click="answer" value="Answer">
+      <!-- <h2>{{Question[index]}}</h2> -->
+      <h2>{{isActive}}</h2>
+      <h2>{{QuestionActive}}</h2>
+      <h2>{{AnswerActive}}</h2>
+      <!-- <input type="text" v-model="index"> -->
+      <input type="text" v-model="answer">
+      <!-- <button @click="changeIndex">Send</button> -->
+      <button @click="checkAnswer">Send</button>
       <div class="chat">
       </div>
     </div>
@@ -11,16 +16,47 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data: function () {
     return {
-      input: '',
-      index: 0,
+      index: ``,
+      answer: ``,
       user: ''
     }
   },
 
+  methods: {
+    changeIndex: function () {
+      this.$store.dispatch('setIsActive', this.index)
+    },
+    checkAnswer: function () {
+      if (this.answer === this.AnswerActive) {
+        let newIndex = String(parseInt(this.IndexActive) + 1)
+        this.$store.dispatch('setIsActive', newIndex)
+      }
+    }
+  },
+
   computed: {
+    ...mapGetters({
+      QuestionActive: 'getQuestion',
+      AnswerActive: 'getAnswer',
+      IndexActive: 'getIsActive'
+    }),
+    isActive () {
+      return this.$store.state.isActive
+    },
+    // QuestionActive () {
+    //   return this.$store.state.question
+    // }
+    // Question () {
+    //   return this.$store.state.arrQuestion
+    // },
+    // isActive () {
+    //   return this.$store.state.isActive
+    // },
     username () {
       return this.$store.state.username
     },
@@ -28,28 +64,14 @@ export default {
       return this.$store.state.arrQuestion
     }
   },
-  methods: {
-    answer () {
-      this.$fbdb.ref('chat/').push({
-        user: this.user,
-        answer: this.input
-      })
-      // let test = document.querySelector('#answer')
-      // console.log(test.value)
-    }
-  },
+
   created: function () {
+    this.$store.dispatch('setIsActive', '1')
+    this.$store.dispatch('loadQuestion')
     this.user = this.$store.state.username
     this.$fbdb.ref('chat').on('child_added', (snapshot) => {
       let val = snapshot.val()
       this.$jq('.chat').append(`<li>${val.user}: ${val.answer}</li>`)
-      // val.answer = val.answer.trim()
-      console.log(val.answer.toLowerCase().trim())
-      if (val.answer === this.Question[this.index].a) {
-        console.log('Jawaban benar')
-        this.index++
-        // console.log(this.Question[this.index].a)
-      }
     })
   }
 }

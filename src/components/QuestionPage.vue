@@ -1,14 +1,19 @@
 <template>
   <div>
     <div>
-      <!-- <h2>{{Question[index]}}</h2> -->
       <h2>{{isActive}}</h2>
       <h2>{{QuestionActive}}</h2>
       <h2>{{AnswerActive}}</h2>
-      <!-- <input type="text" v-model="index"> -->
+      <div id="results" v-if="arrUser.length > 0" v-for="(user,j) in arrUser" :key="j">
+        <div class="msg">
+          <b>{{ user.score }}</b>
+          <p>{{ user.username }}</p>
+        </div>
+      </div>
+
       <input type="text" v-model="answer">
-      <!-- <button @click="changeIndex">Send</button> -->
       <button @click="checkAnswer">Send</button>
+
       <div id="results" v-if="arrMsg.length > 0" v-for="(message,i) in arrMsg" :key="i">
         <div class="msg">
           <b>{{ message.username }}</b>
@@ -40,6 +45,7 @@ export default {
       if (this.answer === this.AnswerActive) {
         let newIndex = String(parseInt(this.IndexActive) + 1)
         this.$store.dispatch('setIsActive', newIndex)
+        this.$store.dispatch('addScore')
       }
       this.answer = ''
     }
@@ -50,20 +56,12 @@ export default {
       QuestionActive: 'getQuestion',
       AnswerActive: 'getAnswer',
       IndexActive: 'getIsActive',
-      arrMsg: 'getArrMessage'
+      arrMsg: 'getArrMessage',
+      arrUser: 'getArrUser'
     }),
     isActive () {
       return this.$store.state.isActive
     },
-    // QuestionActive () {
-    //   return this.$store.state.question
-    // }
-    // Question () {
-    //   return this.$store.state.arrQuestion
-    // },
-    // isActive () {
-    //   return this.$store.state.isActive
-    // },
     username () {
       return this.$store.state.username
     },
@@ -76,6 +74,7 @@ export default {
     this.$store.dispatch('setIsActive', '1')
     this.$store.dispatch('loadQuestion')
     this.$store.dispatch('getChat')
+    this.$store.dispatch('getScore')
     this.user = this.$store.state.username
   }
 }

@@ -29,7 +29,7 @@
             <div class="chat">
               <div class="chat-history">
               <ul id="results" v-if="arrMsg.length > 0" v-for="(message,i) in arrMsg" :key="i">
-                <li>{{ message.message }} -  {{ message.username }}</li>
+                <li>{{ message.username }} - {{ message.message }}</li>
               </ul>
               </div>
             </div>
@@ -99,13 +99,11 @@ export default {
       return this.$store.state.username
     }
   },
-
-  methods: {
-    registerUser () {
-     this.$fbdb.ref('users/').push({ username: this.componentUsername })
-     this.$store.dispatch('saveUser', this.componentUsername)
-     this.$router.push({name: 'Home'})
-   }
+  created: function () {
+    this.$store.dispatch('setIsActive', '1')
+    this.$store.dispatch('loadQuestion')
+    this.$store.dispatch('getChat')
+    this.user = this.$store.state.username
   }
 }
 
@@ -209,6 +207,4 @@ export default {
 textarea:focus, input:focus{
   outline: none;
 }
-
-
 </style>

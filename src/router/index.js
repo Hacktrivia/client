@@ -4,8 +4,18 @@ import HelloWorld from '@/components/HelloWorld'
 import RegisterPage from '@/components/RegisterPage'
 import QuestionPage from '@/components/QuestionPage'
 import ChatPage from '@/components/ChatPage'
+import store from '@/store'
 
 Vue.use(Router)
+
+function requireAuth (to, from, next) {
+  if (store.state.username === 'Some Name' || store.state.username === '') {
+    next('/register')
+  } else {
+    console.log('home')
+    next()
+  }
+}
 
 export default new Router({
   routes: [
@@ -22,7 +32,8 @@ export default new Router({
     {
       path: '/home',
       name: 'Home',
-      component: QuestionPage
+      component: QuestionPage,
+      beforeEnter: requireAuth
     },
     {
       path: '/chat',
@@ -30,4 +41,5 @@ export default new Router({
       component: ChatPage
     }
   ]
+
 })

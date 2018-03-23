@@ -17,6 +17,9 @@ const store = new Vuex.Store({
         a: 'jakarta'
       }
     ],
+    arrMessage: [
+
+    ],
     id: ``,
     username: `Some Name`,
     score: ``,
@@ -45,6 +48,9 @@ const store = new Vuex.Store({
     setScore (state, payload) {
       state.score = payload
     },
+    setArrMsg (state, payload) {
+      state.arrMessage = payload
+    },
     setActive (state, payload) {
       state.isActive = payload
     },
@@ -53,6 +59,11 @@ const store = new Vuex.Store({
     },
     setAnswer (state, payload) {
       state.answer = payload
+    }
+  },
+  getters: {
+    getArrMessage: state => {
+      return state.arrMessage
     }
   },
   actions: {
@@ -65,6 +76,12 @@ const store = new Vuex.Store({
         username: payload
       })
       context.commit('setName', payload)
+    },
+    getChat (context) {
+      firebase.database().ref().child('messages').on('value', (snapshot) => {
+        let arrMsg = Object.values(snapshot.val())
+        context.commit('setArrMsg', arrMsg)
+      })
     },
     getIsActive (context) {
       firebase.database().ref().child('isActive').on('value', function (snapshot) {

@@ -1,23 +1,65 @@
 <template>
   <div>
     <div>
-      <h2>{{Question[index]}}</h2>
+      <!-- <h2>{{Question[index]}}</h2> -->
+      <h2>{{isActive}}</h2>
+      <h2>{{QuestionActive}}</h2>
+      <h2>{{AnswerActive}}</h2>
+      <!-- <input type="text" v-model="index"> -->
+      <input type="text" v-model="answer">
+      <!-- <button @click="changeIndex">Send</button> -->
+      <button @click="checkAnswer">Send</button>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data: function () {
     return {
-      index: 0
+      index: ``,
+      answer: ``
+    }
+  },
+
+  methods: {
+    changeIndex: function () {
+      this.$store.dispatch('setIsActive', this.index)
+    },
+    checkAnswer: function () {
+      if (this.answer === this.AnswerActive) {
+        let newIndex = String(parseInt(this.IndexActive) + 1)
+        this.$store.dispatch('setIsActive', newIndex)
+      }
     }
   },
 
   computed: {
-    Question () {
-      return this.$store.state.arrQuestion
+    ...mapGetters({
+      QuestionActive: 'getQuestion',
+      AnswerActive: 'getAnswer',
+      IndexActive: 'getIsActive'
+    }),
+    isActive () {
+      return this.$store.state.isActive
     }
+    // ,
+    // QuestionActive () {
+    //   return this.$store.state.question
+    // }
+    // Question () {
+    //   return this.$store.state.arrQuestion
+    // },
+    // isActive () {
+    //   return this.$store.state.isActive
+    // },
+  },
+
+  created: function () {
+    this.$store.dispatch('setIsActive', '1')
+    this.$store.dispatch('loadQuestion')
   }
 }
 </script>

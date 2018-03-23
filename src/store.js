@@ -25,7 +25,9 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-
+    createUser (context, payload) {
+      context.commit('setName', payload)
+    }
   }
 })
 

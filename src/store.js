@@ -36,6 +36,9 @@ const store = new Vuex.Store({
     },
     getIsActive: state => {
       return state.isActive
+    },
+    getArrMessage: state => {
+      return state.arrMessage
     }
   },
   mutations: {
@@ -59,11 +62,6 @@ const store = new Vuex.Store({
     },
     setAnswer (state, payload) {
       state.answer = payload
-    }
-  },
-  getters: {
-    getArrMessage: state => {
-      return state.arrMessage
     }
   },
   actions: {

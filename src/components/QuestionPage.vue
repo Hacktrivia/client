@@ -69,10 +69,6 @@ export default {
     this.$store.dispatch('setIsActive', '1')
     this.$store.dispatch('loadQuestion')
     this.user = this.$store.state.username
-    this.$fbdb.ref('chat').on('child_added', (snapshot) => {
-      let val = snapshot.val()
-      this.$jq('.chat').append(`<li>${val.user}: ${val.answer}</li>`)
-    })
   }
 }
 

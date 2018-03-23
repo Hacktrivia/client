@@ -7,7 +7,7 @@
             <div class="question">
               <h3>Question</h3>
               <br>
-              {{Question[index]}}
+              {{QuestionActive}}
             </div>
           </div>
           <div class="col-md-7">
@@ -17,10 +17,10 @@
                 <div class="component-input">
                   <div class="row">
                     <div class="col-md-8">
-                      <input class="form-input" type="text">
+                      <input class="form-input" type="text" v-model="answer">
                     </div>
                     <div class="col-md-4">
-                      <button class="eightbit-btn eightbit-btn--proceed">Guess</button>
+                      <button @click="checkAnswer" class="eightbit-btn eightbit-btn--proceed">Guess</button>
                     </div>
                   </div>
                 </div>
@@ -28,50 +28,9 @@
               <br>
             <div class="chat">
               <div class="chat-history">
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
-                <li>Lorem</li>
+              <ul id="results" v-if="arrMsg.length > 0" v-for="(message,i) in arrMsg" :key="i">
+                <li>{{ message.message }} -  {{ message.username }}</li>
+              </ul>
               </div>
             </div>
           </div>
@@ -79,8 +38,6 @@
             <h3>Players</h3>
             <br>
             <li>{{ getUserName }}</li>
-            <li>Doe</li>
-            <li>Lorem</li>
           </div>
         </div>
       </div>
@@ -89,13 +46,52 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data: function () {
     return {
-      index: 0
+      index: ``,
+      answer: ``,
+      user: ''
+    }
+  },
+
+  methods: {
+    changeIndex: function () {
+      this.$store.dispatch('setIsActive', this.index)
+    },
+    checkAnswer: function () {
+      this.$fbdb.ref('messages/').push({ username: this.user, message: this.answer })
+      if (this.answer === this.AnswerActive) {
+        let newIndex = String(parseInt(this.IndexActive) + 1)
+        this.$store.dispatch('setIsActive', newIndex)
+      }
+      this.answer = ''
     }
   },
   computed: {
+    ...mapGetters({
+      QuestionActive: 'getQuestion',
+      AnswerActive: 'getAnswer',
+      IndexActive: 'getIsActive',
+      arrMsg: 'getArrMessage'
+    }),
+    isActive () {
+      return this.$store.state.isActive
+    },
+    // QuestionActive () {
+    //   return this.$store.state.question
+    // }
+    // Question () {
+    //   return this.$store.state.arrQuestion
+    // },
+    // isActive () {
+    //   return this.$store.state.isActive
+    // },
+    username () {
+      return this.$store.state.username
+    },
     Question () {
       return this.$store.state.arrQuestion
     },
@@ -103,10 +99,16 @@ export default {
       return this.$store.state.username
     }
   },
-  methods: {
 
+  methods: {
+    registerUser () {
+     this.$fbdb.ref('users/').push({ username: this.componentUsername })
+     this.$store.dispatch('saveUser', this.componentUsername)
+     this.$router.push({name: 'Home'})
+   }
   }
 }
+
 </script>
 
 <style scoped>

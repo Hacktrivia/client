@@ -5,11 +5,11 @@
       <br>
       <h1>Enter your name</h1>
       <br>
-      <input class="form-input" type="text" v-model="componentUsername" @keyup.enter="changeName">
+      <input class="form-input" type="text" v-model="componentUsername" @keyup.enter="registerUser">
       <br>
       <br>
       <br>
-      <button class="eightbit-btn eightbit-btn--proceed" @click="changeName">Play Game</button>
+      <button class="eightbit-btn eightbit-btn--proceed"  @click="registerUser">Play Game</button>
     </div>
   </div>
 </template>
@@ -29,9 +29,10 @@ export default {
   },
 
   methods: {
-    changeName () {
-      this.$store.dispatch('createUser', this.componentUsername)
-      this.$router.push('/home')
+    registerUser () {
+      this.$fbdb.ref('users/').push({ username: this.componentUsername })
+      this.$store.dispatch('saveUser', this.componentUsername)
+      this.$router.push({name: 'Home'})
     }
   }
 }

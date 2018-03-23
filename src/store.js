@@ -13,7 +13,8 @@ const store = new Vuex.Store({
     score: ``,
     isActive: ``,
     question: ``,
-    answer: ``
+    answer: ``,
+    lastndexQuestion: 3
   },
   getters: {
     getQuestion: state => {
@@ -27,6 +28,9 @@ const store = new Vuex.Store({
     },
     getArrMessage: state => {
       return state.arrMessage
+    },
+    getLastndexQuestion: state => {
+      return state.lastndexQuestion
     }
   },
   mutations: {
@@ -58,8 +62,10 @@ const store = new Vuex.Store({
       // firebase.database().ref().child("").on('value', function(snapshot) {
       //   snapshot.val()
       // })
-      firebase.database().ref('users/' + '2').set({
-        username: payload
+      let key = firebase.database().ref().child('users').push().key
+      firebase.database().ref('users/' + key).set({
+        username: payload,
+        score: 2
       })
       context.commit('setName', payload)
     },

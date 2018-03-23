@@ -30,7 +30,7 @@ export default {
 
   methods: {
     registerUser () {
-      this.$fbdb.ref('users/').push({ username: this.componentUsername })
+      // this.$fbdb.ref('users/').push({ username: this.componentUsername })
       this.$store.dispatch('saveUser', this.componentUsername)
       this.$router.push({name: 'Home'})
     }

@@ -9,6 +9,8 @@
       <input type="text" v-model="answer">
       <!-- <button @click="changeIndex">Send</button> -->
       <button @click="checkAnswer">Send</button>
+      <div class="chat">
+      </div>
     </div>
   </div>
 </template>
@@ -20,7 +22,8 @@ export default {
   data: function () {
     return {
       index: ``,
-      answer: ``
+      answer: ``,
+      user: ''
     }
   },
 
@@ -44,8 +47,7 @@ export default {
     }),
     isActive () {
       return this.$store.state.isActive
-    }
-    // ,
+    },
     // QuestionActive () {
     //   return this.$store.state.question
     // }
@@ -55,13 +57,25 @@ export default {
     // isActive () {
     //   return this.$store.state.isActive
     // },
+    username () {
+      return this.$store.state.username
+    },
+    Question () {
+      return this.$store.state.arrQuestion
+    }
   },
 
   created: function () {
     this.$store.dispatch('setIsActive', '1')
     this.$store.dispatch('loadQuestion')
+    this.user = this.$store.state.username
+    this.$fbdb.ref('chat').on('child_added', (snapshot) => {
+      let val = snapshot.val()
+      this.$jq('.chat').append(`<li>${val.user}: ${val.answer}</li>`)
+    })
   }
 }
+
 </script>
 
 <style>

@@ -6,9 +6,16 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     arrQuestion: [
-      'Apa nama ibu kota Indonesia ? ',
-      'Apa nama ibu kota Jerman ? ',
-      'Apa nama ibu kota Belanda ? '
+      {
+        q: 'Apa nama ibu kota Indonesia ? ',
+        a: 'jakarta'
+      }, {
+        q: 'Apa nama ibu kota Belanda ? ',
+        a: 'jakarta'
+      }, {
+        q: 'Apa nama ibu kota Bekasi ? ',
+        a: 'jakarta'
+      }
     ],
     id: ``,
     username: `Some Name`,

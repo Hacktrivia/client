@@ -9,7 +9,11 @@
       <input type="text" v-model="answer">
       <!-- <button @click="changeIndex">Send</button> -->
       <button @click="checkAnswer">Send</button>
-      <div class="chat">
+      <div id="results" v-if="arrMsg.length > 0" v-for="(message,i) in arrMsg" :key="i">
+        <div class="msg">
+          <b>{{ message.username }}</b>
+          <p>{{ message.message }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -32,10 +36,12 @@ export default {
       this.$store.dispatch('setIsActive', this.index)
     },
     checkAnswer: function () {
+      this.$fbdb.ref('messages/').push({ username: this.user, message: this.answer })
       if (this.answer === this.AnswerActive) {
         let newIndex = String(parseInt(this.IndexActive) + 1)
         this.$store.dispatch('setIsActive', newIndex)
       }
+      this.answer = ''
     }
   },
 
@@ -43,7 +49,8 @@ export default {
     ...mapGetters({
       QuestionActive: 'getQuestion',
       AnswerActive: 'getAnswer',
-      IndexActive: 'getIsActive'
+      IndexActive: 'getIsActive',
+      arrMsg: 'getArrMessage'
     }),
     isActive () {
       return this.$store.state.isActive
@@ -68,6 +75,7 @@ export default {
   created: function () {
     this.$store.dispatch('setIsActive', '1')
     this.$store.dispatch('loadQuestion')
+    this.$store.dispatch('getChat')
     this.user = this.$store.state.username
   }
 }
